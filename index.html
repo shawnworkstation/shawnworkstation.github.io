@@ -627,6 +627,29 @@
               </div>
             </div>
 
+            <div class="project-row">
+              <div>
+                <div class="project-num">02</div>
+                <div class="project-name">AI Morality Index</div>
+                <p class="project-desc">
+                  An automated benchmarking system that scores ChatGPT, Claude, and Gemini
+                  on ethical and legal awareness daily. A backend queries each model with
+                  standardised moral scenarios; a live frontend visualises the results and
+                  trends over time.
+                </p>
+                <div class="project-stack">
+                  <span class="stack-tag">Python</span>
+                  <span class="stack-tag">JavaScript</span>
+                  <span class="stack-tag">REST APIs</span>
+                  <span class="stack-tag">Netlify</span>
+                </div>
+              </div>
+              <div class="project-right">
+                <a class="proj-link" href="https://github.com/shawnworkstation/aimoralindex" target="_blank">GitHub ↗</a>
+                <a class="proj-link" href="https://aimoralindex.netlify.app/" target="_blank">Live ↗</a>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -690,11 +713,11 @@
           </div>
           <div class="contact-links reveal">
             <!-- ✏️ EDIT: Replace all href values and handles -->
-            <a class="contact-link-row" href="mailto:shawnwang379@gmail.com">
+            <a class="contact-link-row" href="/cdn-cgi/l/email-protection#a3d0cbc2d4cdd4c2cdc490949ae3c4cec2cacf8dc0ccce">
               <span class="cl-icon">✉️</span>
               <div>
                 <div class="cl-label">Email</div>
-                <div class="cl-handle">shawnwang379@gmail.com</div>
+                <div class="cl-handle"><span class="__cf_email__" data-cfemail="35465d54425b42545b5206020c755258545c591b565a58">[email&#160;protected]</span></div>
               </div>
               <span class="cl-arrow">→</span>
             </a>
@@ -727,5 +750,4 @@
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          const siblings = e.target.parentElement.querySelectorAll('.reveal');
-          siblings.forEach((el, idx) => { el.style.transitionDelay = `${idx * 80}ms`; })
+          const siblings =
