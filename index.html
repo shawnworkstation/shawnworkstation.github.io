@@ -329,11 +329,7 @@
     .projects-list {
       display: flex;
       flex-direction: column;
-      gap: 1px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--border);
+      gap: 1rem;
     }
     .project-row {
       display: grid;
@@ -342,9 +338,15 @@
       gap: 2rem;
       padding: 1.8rem 2rem;
       background: var(--white);
-      transition: background 0.15s;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
     }
-    .project-row:hover { background: var(--bg); }
+    .project-row:hover {
+      border-color: var(--ink2);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+    }
     .project-num {
       font-family: var(--mono);
       font-size: 0.65rem;
@@ -398,22 +400,24 @@
     .certs-grid {
       margin-top: 3rem;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 1px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--border);
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
     }
     .cert-card {
       background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
       padding: 1.6rem;
-      transition: background 0.15s;
+      transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
     }
-    .cert-card:hover { background: var(--bg); }
+    .cert-card:hover {
+      border-color: var(--ink2);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+    }
     .cert-icon { font-size: 1.4rem; margin-bottom: 0.3rem; line-height: 1; }
     .cert-name {
       font-family: var(--serif);
@@ -552,7 +556,7 @@
               <img src="photo.jpg" alt="Shawn Wang" style="width:100%;height:100%;object-fit:cover">
             </div>
             <div class="hero-social">
-              <a href="mailto:shawnwang379@gmail.com" class="hero-social-icon" title="Email">
+              <a href="/cdn-cgi/l/email-protection#44372c25332a33252a2377737d042329252d286a272b29" class="hero-social-icon" title="Email">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="2" y="4" width="20" height="16" rx="2"/>
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
@@ -616,25 +620,7 @@
                 <span class="chip">SQL</span>
                 <span class="chip">Security Engineering</span>
               </div>
-              <!-- ✏️ EDIT: Update your stats -->
-              <div class="facts">
-                <div class="fact">
-                  <div class="fact-num">5+</div>
-                  <div class="fact-label">Years experience</div>
-                </div>
-                <div class="fact">
-                  <div class="fact-num">4</div>
-                  <div class="fact-label">Certifications</div>
-                </div>
-                <div class="fact">
-                  <div class="fact-num">2</div>
-                  <div class="fact-label">Countries worked</div>
-                </div>
-                <div class="fact">
-                  <div class="fact-num">∞</div>
-                  <div class="fact-label">Packets inspected</div>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
@@ -761,13 +747,7 @@
 
   <footer>SHAWN WANG · BUILT WITH HTML · HOSTED ON GITHUB PAGES</footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // No-op: animations are pure CSS. This script only fixes mailto links
     // that Cloudflare may have obfuscated.
-    document.querySelectorAll('a[href*="email-protection"]').forEach(function(a) {
-      a.href = 'mailto:shawnwang379@gmail.com';
-    });
-  </script>
-
-</body>
-</html>
+    document.q
