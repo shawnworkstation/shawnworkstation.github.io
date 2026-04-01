@@ -543,6 +543,91 @@
     .cl-arrow { margin-left: auto; color: var(--muted); font-size: 0.9rem; transition: transform 0.15s; }
     .contact-link-row:hover .cl-arrow { transform: translateX(3px); }
 
+    /* ─── CONTACT FORM ───────────────────────────────────── */
+    .contact-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .cf-sub {
+      font-size: 0.92rem;
+      color: var(--ink2);
+      line-height: 1.85;
+      margin-top: 1rem;
+    }
+    .cf-email-note {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 1.5rem;
+    }
+    .cf-link {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .cf-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .cf-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin-bottom: 0.75rem;
+    }
+    .cf-field:last-of-type { margin-bottom: 0; }
+    .cf-field input,
+    .cf-field textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.18s;
+      resize: vertical;
+    }
+    .cf-field input::placeholder,
+    .cf-field textarea::placeholder { color: var(--muted); }
+    .cf-field input:focus,
+    .cf-field textarea:focus { border-color: var(--ink); }
+    .cf-err {
+      font-size: 0.72rem;
+      color: #c0392b;
+      display: none;
+    }
+    .cf-field input:invalid:not(:placeholder-shown) + .cf-err,
+    .cf-field textarea:invalid:not(:placeholder-shown) + .cf-err { display: block; }
+    .cf-btn {
+      margin-top: 1rem;
+      padding: 0.85rem 2.2rem;
+      background: var(--ink);
+      color: var(--bg);
+      border: none;
+      border-radius: 999px;
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.18s;
+    }
+    .cf-btn:hover { background: var(--ink2); transform: translateY(-2px); }
+    .cf-success {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--green);
+    }
+    @media (max-width: 720px) {
+      .contact-form-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .cf-row { grid-template-columns: 1fr; }
+    }
+
     /* ─── FOOTER ──────────────────────────────────────────── */
     footer {
       text-align: center;
@@ -593,6 +678,7 @@
       <a href="#journey">Journey</a>
       <a href="#projects">Projects</a>
       <a href="#certificates">Certs</a>
+      <a href="#contact" class="nav-cta">Contact</a>
     </div>
   </nav>
 
@@ -623,7 +709,7 @@
               <img src="photo.jpg" alt="Shawn Wang" style="width:100%;height:100%;object-fit:cover">
             </div>
             <div class="hero-social">
-              <a href="/cdn-cgi/l/email-protection#44372c25332a33252a2377737d042329252d286a272b29" class="hero-social-icon" title="Email">
+              <a href="#contact" class="hero-social-icon" title="Email">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="2" y="4" width="20" height="16" rx="2"/>
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
@@ -711,9 +797,9 @@
           <div style="margin-top:2.5rem;" class="reveal">
             <p class="skills-label">Languages</p>
             <div class="skills-chips">
-              <span class="chip">English — Professional</span>
-              <span class="chip">Mandarin — Native</span>
-              <span class="chip">Japanese — Business level</span>
+              <span class="chip">🇬🇧 English — Professional</span>
+              <span class="chip">🇨🇳 Mandarin — Native</span>
+              <span class="chip">🇯🇵 Japanese — Business level</span>
             </div>
           </div>
 
@@ -966,6 +1052,56 @@
     </section>
 
 
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-wrap">
+          <div class="contact-form-grid reveal">
+            <div class="cf-left">
+              <p class="section-kicker">Contact</p>
+              <h2 class="section-title">Get in<br><em>touch</em></h2>
+              <p class="cf-sub">
+                Open to backend, security, and data engineering roles.
+                Based in Vancouver — feel free to reach out.
+              </p>
+              <p class="cf-email-note">
+                Prefer email?
+                <a href="mailto:shawnwang379@gmail.com" class="cf-link">shawnwang379@gmail.com</a>
+              </p>
+            </div>
+            <div class="cf-right">
+              <!-- Formspree: sign up at formspree.io, create a form,
+                   then replace YOUR_FORM_ID below with your actual ID -->
+              <form id="contact-form" action="https://formspree.io/f/mlgolpvr" method="POST">
+                <div class="cf-row">
+                  <div class="cf-field">
+                    <input type="text" name="name" placeholder="Your name" required />
+                    <span class="cf-err">Name is required.</span>
+                  </div>
+                  <div class="cf-field">
+                    <input type="email" name="email" placeholder="Email address" required />
+                    <span class="cf-err">Email is required.</span>
+                  </div>
+                </div>
+                <div class="cf-field">
+                  <input type="text" name="subject" placeholder="Subject" required />
+                  <span class="cf-err">Subject is required.</span>
+                </div>
+                <div class="cf-field">
+                  <textarea name="message" placeholder="Message" rows="6" required></textarea>
+                  <span class="cf-err">Message is required.</span>
+                </div>
+                <button type="submit" class="cf-btn">Send Message</button>
+                <p class="cf-success" id="cf-success" style="display:none;">
+                  ✓ Message sent! I'll get back to you soon.
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer>SHAWN WANG · BUILT WITH HTML · HOSTED ON GITHUB PAGES</footer>
@@ -974,3 +1110,32 @@
     // No-op: animations are pure CSS. This script only fixes mailto links
     // that Cloudflare may have obfuscated.
     document.q
+
+  <script>
+    // Fix any Cloudflare-obfuscated mailto links
+    document.querySelectorAll('a[href*="email-protection"]').forEach(function(a) {
+      a.href = 'mailto:shawnwang379@gmail.com';
+    });
+
+    // Formspree AJAX submission
+    var form = document.getElementById('contact-form');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        if (form.action.includes('YOUR_FORM_ID')) return; // allow normal if not set up yet
+        e.preventDefault();
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        }).then(function(r) {
+          if (r.ok) {
+            form.reset();
+            document.getElementById('cf-success').style.display = 'block';
+          }
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>
