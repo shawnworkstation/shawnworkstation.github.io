@@ -7,8 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&family=Geist:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-
-    /* ─── TOKENS ──────────────────────────────────────────── */
     :root {
       --bg:       #f7f6f2;
       --white:    #ffffff;
@@ -16,15 +14,15 @@
       --ink2:     #3a3a37;
       --muted:    #8a8a85;
       --border:   #e2e1db;
-      --accent:   #1a1a18;
+      --sidebar:  #eae9e4;
       --green:    #2d6a4f;
       --green-bg: #f0faf5;
       --serif:    'Fraunces', Georgia, serif;
       --mono:     'IBM Plex Mono', monospace;
       --sans:     'Geist', system-ui, sans-serif;
+      --sidebar-w: 280px;
     }
 
-    /* ─── RESET ───────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
@@ -34,698 +32,382 @@
       font-weight: 300;
       line-height: 1.75;
       -webkit-font-smoothing: antialiased;
+      display: flex;
+      min-height: 100vh;
     }
     a { color: inherit; text-decoration: none; }
 
-    /* ─── NAV ─────────────────────────────────────────────── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 3rem;
-      height: 60px;
-      background: rgba(247,246,242,0.88);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      z-index: 200;
-    }
-    .nav-logo {
-      font-family: var(--serif);
-      font-style: italic;
-      font-weight: 300;
-      font-size: 1.1rem;
-      color: var(--ink);
-      letter-spacing: -0.3px;
-    }
-    .nav-links {
+    /* ── SIDEBAR ─────────────────────────────────────────── */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0;
+      width: var(--sidebar-w);
+      height: 100vh;
+      background: var(--sidebar);
       display: flex;
-      align-items: center;
-      gap: 2.5rem;
+      flex-direction: column;
+      padding: 2.5rem 2rem;
+      z-index: 100;
+      overflow: hidden;
     }
-    .nav-links a {
-      font-size: 0.78rem;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      transition: color 0.18s;
-    }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-cta {
-      padding: 0.45rem 1.1rem;
-      background: var(--ink);
-      color: var(--bg) !important;
-      border-radius: 4px;
-      font-size: 0.75rem !important;
-      font-weight: 500 !important;
-      letter-spacing: 0.04em !important;
-      transition: opacity 0.18s !important;
-    }
-    .nav-cta:hover { opacity: 0.8; color: var(--bg) !important; }
-
-    /* ─── LAYOUT ──────────────────────────────────────────── */
-    main { padding-top: 60px; }
-    .container {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 0 2.5rem;
-    }
-
-    /* ─── HERO ────────────────────────────────────────────── */
-    #hero {
-      min-height: calc(100vh - 60px);
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid var(--border);
-    }
-    .hero-inner {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 4rem;
-      align-items: center;
-      width: 100%;
-      padding: 6rem 0;
-    }
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--green);
-      margin-bottom: 1.8rem;
-    }
-    .hero-eyebrow::before {
-      content: '';
-      width: 6px; height: 6px;
+    .sb-avatar {
+      width: 90px; height: 90px;
       border-radius: 50%;
-      background: var(--green);
-      animation: blink 2s ease-in-out infinite;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      margin-bottom: 1.2rem;
+      flex-shrink: 0;
     }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.2; }
+    .sb-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .sb-name {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+    .sb-role {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+    }
+    .sb-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 1.8rem 0;
+    }
+    .sb-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      flex: 1;
+    }
+    .sb-nav a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--muted);
+      transition: background 0.18s, color 0.18s;
+      letter-spacing: 0.01em;
+    }
+    .sb-nav a:hover,
+    .sb-nav a.active {
+      background: rgba(0,0,0,0.06);
+      color: var(--ink);
+    }
+    .sb-nav a .sb-icon {
+      width: 17px; height: 17px;
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+    .sb-nav a:hover .sb-icon,
+    .sb-nav a.active .sb-icon { opacity: 0.9; }
+    .sb-social {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .sb-social a {
+      display: flex; align-items: center; justify-content: center;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: border-color 0.18s, color 0.18s;
+    }
+    .sb-social a:hover { border-color: var(--ink); color: var(--ink); }
+
+    /* ── MAIN CONTENT ────────────────────────────────────── */
+    .main-content {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      min-height: 100vh;
+    }
+    .main-content section,
+    .main-content footer { width: 100%; }
+    .container {
+      max-width: 760px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 3rem;
+    }
+    section { border-bottom: 1px solid var(--border); }
+    .section-wrap { padding: 5rem 0; }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+    .hero-inner { padding: 4rem 0; }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
     }
     .hero-name {
       font-family: var(--serif);
-      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-size: clamp(3rem, 5vw, 5rem);
       font-weight: 300;
       line-height: 1.05;
       letter-spacing: -2px;
       color: var(--ink);
-      margin-bottom: 0.5rem;
     }
-    .hero-name em {
-      font-style: italic;
-      color: var(--muted);
-    }
+    .hero-name em { font-style: italic; color: var(--muted); }
     .hero-role {
       font-family: var(--mono);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--muted);
       margin-top: 1.2rem;
-      margin-bottom: 1.8rem;
       letter-spacing: 0.02em;
     }
     .hero-bio {
-      font-size: 1.05rem;
+      font-size: 1rem;
       color: var(--ink2);
-      max-width: 440px;
+      max-width: 480px;
       line-height: 1.85;
-      font-weight: 300;
+      margin-top: 1.5rem;
     }
     .hero-actions {
-      display: flex;
-      gap: 0.75rem;
-      margin-top: 2.5rem;
-      flex-wrap: wrap;
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+      margin-top: 2rem;
     }
     .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
+      display: inline-flex; align-items: center;
       padding: 0.65rem 1.4rem;
       border-radius: 5px;
-      font-size: 0.82rem;
-      font-weight: 400;
+      font-size: 0.82rem; font-weight: 400;
       font-family: var(--sans);
-      cursor: pointer;
-      border: 1px solid transparent;
+      cursor: pointer; border: 1px solid transparent;
       transition: all 0.18s;
     }
-    .btn-dark {
-      background: var(--ink);
-      color: var(--bg);
-    }
+    .btn-dark { background: var(--ink); color: var(--bg); }
     .btn-dark:hover { background: var(--ink2); }
-    .btn-ghost {
-      background: transparent;
-      color: var(--ink);
-      border-color: var(--border);
-    }
+    .btn-ghost { background: transparent; color: var(--ink); border-color: var(--border); }
     .btn-ghost:hover { border-color: var(--ink); }
 
-    .hero-right {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.2rem;
-      flex-shrink: 0;
-    }
-    .hero-avatar {
-      width: 200px; height: 200px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      background: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 5rem;
-      overflow: hidden;
-    }
-    .hero-social {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-    }
-    .hero-social-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      background: var(--white);
-      color: var(--muted);
-      transition: color 0.18s, border-color 0.18s, transform 0.18s;
-    }
-    .hero-social-icon:hover {
-      color: var(--ink);
-      border-color: var(--ink);
-      transform: translateY(-2px);
-    }
-
-    /* ─── SECTION SHARED ──────────────────────────────────── */
-    section { border-bottom: 1px solid var(--border); }
-    .section-wrap { padding: 6rem 0; }
+    /* ── SECTION SHARED ──────────────────────────────────── */
     .section-kicker {
       font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
+      font-size: 0.68rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted);
       margin-bottom: 0.6rem;
     }
     .section-title {
       font-family: var(--serif);
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 300;
-      letter-spacing: -1px;
-      line-height: 1.15;
-      color: var(--ink);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 300; letter-spacing: -1px; line-height: 1.15;
     }
     .section-title em { font-style: italic; color: var(--muted); }
 
-    /* ─── TIMELINE ───────────────────────────────────────── */
-    .timeline {
-      margin-top: 3.5rem;
-      position: relative;
-      padding-left: 2rem;
+    /* ── ABOUT ───────────────────────────────────────────── */
+    .about-grid {
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem; margin-top: 3rem; align-items: start;
     }
+    .about-text p { color: var(--ink2); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1rem; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .skills-label {
+      font-family: var(--mono); font-size: 0.65rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.75rem;
+    }
+    .skills-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.5rem; }
+    .chip {
+      font-family: var(--mono); font-size: 0.7rem;
+      padding: 0.28rem 0.7rem; border-radius: 3px;
+      border: 1px solid var(--border); color: var(--ink2);
+      background: var(--white); transition: border-color 0.15s, color 0.15s;
+    }
+    .chip:hover { border-color: var(--ink); color: var(--ink); }
+
+    /* ── TIMELINE ────────────────────────────────────────── */
+    .timeline { margin-top: 3rem; position: relative; padding-left: 2rem; }
     .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 6px;
-      bottom: 6px;
-      width: 1px;
-      background: var(--border);
+      content: ''; position: absolute; left: 0; top: 6px; bottom: 6px;
+      width: 1px; background: var(--border);
     }
-    .tl-item {
-      position: relative;
-      padding: 0 0 3rem 2.5rem;
-    }
+    .tl-item { position: relative; padding: 0 0 2.8rem 2.5rem; }
     .tl-item:last-child { padding-bottom: 0; }
     .tl-item::before {
-      content: '';
-      position: absolute;
-      left: -2rem;
-      top: 7px;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--border);
-      border: 2px solid var(--bg);
-      box-shadow: 0 0 0 1px var(--border);
-      transition: background 0.2s;
+      content: ''; position: absolute; left: -2rem; top: 7px;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--border); border: 2px solid var(--bg);
+      box-shadow: 0 0 0 1px var(--border); transition: background 0.2s;
     }
     .tl-item:hover::before { background: var(--ink); }
-    .tl-date {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--green);
-      letter-spacing: 0.06em;
-      margin-bottom: 0.4rem;
-    }
-    .tl-title {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      font-weight: 400;
-      letter-spacing: -0.2px;
-      line-height: 1.3;
-      margin-bottom: 0.25rem;
-    }
-    .tl-place {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
-    .tl-tag {
-      display: inline-block;
-      margin-top: 0.6rem;
-      font-family: var(--mono);
-      font-size: 0.64rem;
-      padding: 0.18rem 0.6rem;
-      border-radius: 3px;
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
+    .tl-date { font-family: var(--mono); font-size: 0.68rem; color: var(--green); letter-spacing: 0.06em; margin-bottom: 0.35rem; }
+    .tl-title { font-family: var(--serif); font-size: 1.05rem; font-weight: 400; letter-spacing: -0.2px; line-height: 1.3; margin-bottom: 0.2rem; }
+    .tl-place { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+    .tl-tag { display: inline-block; margin-top: 0.5rem; font-family: var(--mono); font-size: 0.62rem; padding: 0.15rem 0.55rem; border-radius: 3px; border: 1px solid var(--border); color: var(--muted); }
     .tl-tag.edu { background: #f0faf5; color: var(--green); border-color: #c3e6d8; }
     .tl-tag.work { background: #f5f5ff; color: #5a5a9a; border-color: #d0d0ee; }
 
-    /* ─── ABOUT ───────────────────────────────────────────── */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 6rem;
-      margin-top: 3.5rem;
-      align-items: start;
-    }
-    .about-text p {
-      color: var(--ink2);
-      font-size: 0.97rem;
-      line-height: 1.9;
-      margin-bottom: 1rem;
-    }
-    .about-text p:last-child { margin-bottom: 0; }
-    .skills-label {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
-    .skills-chips {
-      display: flex; flex-wrap: wrap; gap: 0.5rem;
-      margin-bottom: 2rem;
-    }
-    .chip {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      padding: 0.3rem 0.75rem;
-      border-radius: 3px;
-      border: 1px solid var(--border);
-      color: var(--ink2);
-      background: var(--white);
-      transition: border-color 0.15s, color 0.15s;
-    }
-    .chip:hover { border-color: var(--ink); color: var(--ink); }
-    .facts {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--border);
-    }
-    .fact {
-      background: var(--white);
-      padding: 1.4rem;
-    }
-    .fact-num {
-      font-family: var(--serif);
-      font-size: 2.2rem;
-      font-weight: 300;
-      color: var(--ink);
-      line-height: 1;
-    }
-    .fact-label {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-top: 0.25rem;
-    }
-
-    /* ─── PROJECTS ────────────────────────────────────────── */
-    .projects-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 2.5rem;
-    }
-    .view-all {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      transition: color 0.15s, gap 0.15s;
-    }
+    /* ── PROJECTS ────────────────────────────────────────── */
+    .projects-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; }
+    .view-all { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); display: flex; align-items: center; gap: 0.3rem; transition: color 0.15s, gap 0.15s; }
     .view-all:hover { color: var(--ink); gap: 0.5rem; }
-    .projects-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
+    .projects-list { display: flex; flex-direction: column; gap: 1rem; }
     .project-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 2rem;
-      padding: 1.8rem 2rem;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 10px;
+      display: grid; grid-template-columns: 1fr auto; align-items: center;
+      gap: 2rem; padding: 1.6rem 1.8rem; background: var(--white);
+      border: 1px solid var(--border); border-radius: 10px;
       transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
     }
-    .project-row:hover {
-      border-color: var(--ink2);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.06);
-    }
-    .project-num {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-    }
-    .project-name {
-      font-family: var(--serif);
-      font-size: 1.15rem;
-      font-weight: 400;
-      letter-spacing: -0.3px;
-      margin-bottom: 0.4rem;
-    }
-    .project-desc {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-    .project-stack {
-      display: flex; gap: 0.4rem; flex-wrap: wrap;
-      margin-top: 0.75rem;
-    }
-    .stack-tag {
-      font-family: var(--mono);
-      font-size: 0.64rem;
-      padding: 0.18rem 0.55rem;
-      border-radius: 2px;
-      background: var(--green-bg);
-      color: var(--green);
-    }
-    .project-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.5rem;
-      flex-shrink: 0;
-    }
-    .proj-link {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 0.3rem 0.7rem;
-      border-radius: 3px;
-      white-space: nowrap;
-      transition: all 0.15s;
-    }
+    .project-row:hover { border-color: var(--ink2); transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
+    .project-num { font-family: var(--mono); font-size: 0.63rem; color: var(--muted); margin-bottom: 0.4rem; }
+    .project-name { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; letter-spacing: -0.3px; margin-bottom: 0.35rem; }
+    .project-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+    .project-stack { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.7rem; }
+    .stack-tag { font-family: var(--mono); font-size: 0.62rem; padding: 0.15rem 0.5rem; border-radius: 2px; background: var(--green-bg); color: var(--green); }
+    .project-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; flex-shrink: 0; }
+    .proj-link { font-family: var(--mono); font-size: 0.66rem; color: var(--muted); border: 1px solid var(--border); padding: 0.28rem 0.65rem; border-radius: 3px; white-space: nowrap; transition: all 0.15s; }
     .proj-link:hover { border-color: var(--ink); color: var(--ink); }
 
-    /* ─── CERTIFICATES ────────────────────────────────────── */
-    .certs-grid {
-      margin-top: 3rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1rem;
-    }
-    .cert-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.6rem;
-      transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .cert-card:hover {
-      border-color: var(--ink2);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.06);
-    }
-    .cert-icon { font-size: 1.4rem; margin-bottom: 0.3rem; line-height: 1; }
-    .cert-name {
-      font-family: var(--serif);
-      font-size: 1rem;
-      font-weight: 400;
-      letter-spacing: -0.2px;
-      line-height: 1.3;
-    }
-    .cert-issuer {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--muted);
-    }
-    .cert-date {
-      font-size: 0.72rem;
-      color: var(--green);
-      margin-top: auto;
-      padding-top: 0.5rem;
-    }
+    /* ── CERTIFICATES ────────────────────────────────────── */
+    .certs-grid { margin-top: 2.5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+    .cert-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s; display: flex; flex-direction: column; gap: 0.4rem; }
+    .cert-card:hover { border-color: var(--ink2); transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
+    .cert-icon { font-size: 1.3rem; margin-bottom: 0.2rem; line-height: 1; }
+    .cert-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 400; letter-spacing: -0.2px; line-height: 1.3; }
+    .cert-issuer { font-family: var(--mono); font-size: 0.66rem; color: var(--muted); }
+    .cert-date { font-size: 0.7rem; color: var(--green); margin-top: auto; padding-top: 0.4rem; }
 
-    /* ─── CONTACT ─────────────────────────────────────────── */
-    #contact .section-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-      align-items: center;
-    }
-    .contact-text {
-      font-size: 0.92rem;
-      color: var(--ink2);
-      line-height: 1.85;
-      margin-top: 1rem;
-    }
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    .contact-link-row {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1.1rem 1.4rem;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: var(--white);
-      transition: all 0.15s;
-    }
-    .contact-link-row:hover {
-      border-color: var(--ink);
-      transform: translateX(4px);
-    }
-    .cl-icon { font-size: 1.1rem; width: 1.4rem; text-align: center; flex-shrink: 0; }
-    .cl-label { font-size: 0.85rem; font-weight: 400; color: var(--ink); }
-    .cl-handle { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-top: 0.1rem; }
-    .cl-arrow { margin-left: auto; color: var(--muted); font-size: 0.9rem; transition: transform 0.15s; }
-    .contact-link-row:hover .cl-arrow { transform: translateX(3px); }
-
-    /* ─── CONTACT FORM ───────────────────────────────────── */
-    .contact-form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.6fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .cf-sub {
-      font-size: 0.92rem;
-      color: var(--ink2);
-      line-height: 1.85;
-      margin-top: 1rem;
-    }
-    .cf-email-note {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-top: 1.5rem;
-    }
-    .cf-link {
-      color: var(--green);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-    .cf-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
-    }
-    .cf-field {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-      margin-bottom: 0.75rem;
-    }
+    /* ── CONTACT FORM ────────────────────────────────────── */
+    .contact-form-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: start; }
+    .cf-sub { font-size: 0.9rem; color: var(--ink2); line-height: 1.85; margin-top: 1rem; }
+    .cf-email-note { font-size: 0.8rem; color: var(--muted); margin-top: 1.5rem; }
+    .cf-link { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+    .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .cf-field { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 0.75rem; }
     .cf-field:last-of-type { margin-bottom: 0; }
-    .cf-field input,
-    .cf-field textarea {
-      width: 100%;
-      padding: 0.85rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--white);
-      font-family: var(--sans);
-      font-size: 0.88rem;
-      color: var(--ink);
-      outline: none;
-      transition: border-color 0.18s;
-      resize: vertical;
-    }
-    .cf-field input::placeholder,
-    .cf-field textarea::placeholder { color: var(--muted); }
-    .cf-field input:focus,
-    .cf-field textarea:focus { border-color: var(--ink); }
-    .cf-err {
-      font-size: 0.72rem;
-      color: #c0392b;
-      display: none;
-    }
+    .cf-field input, .cf-field textarea { width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border); border-radius: 8px; background: var(--white); font-family: var(--sans); font-size: 0.86rem; color: var(--ink); outline: none; transition: border-color 0.18s; resize: vertical; }
+    .cf-field input::placeholder, .cf-field textarea::placeholder { color: var(--muted); }
+    .cf-field input:focus, .cf-field textarea:focus { border-color: var(--ink); }
+    .cf-err { font-size: 0.7rem; color: #c0392b; display: none; }
     .cf-field input:invalid:not(:placeholder-shown) + .cf-err,
     .cf-field textarea:invalid:not(:placeholder-shown) + .cf-err { display: block; }
-    .cf-btn {
-      margin-top: 1rem;
-      padding: 0.85rem 2.2rem;
-      background: var(--ink);
-      color: var(--bg);
-      border: none;
-      border-radius: 999px;
-      font-family: var(--sans);
-      font-size: 0.88rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.18s, transform 0.18s;
-    }
+    .cf-btn { margin-top: 1rem; padding: 0.82rem 2rem; background: var(--ink); color: var(--bg); border: none; border-radius: 999px; font-family: var(--sans); font-size: 0.86rem; font-weight: 500; cursor: pointer; transition: background 0.18s, transform 0.18s; }
     .cf-btn:hover { background: var(--ink2); transform: translateY(-2px); }
-    .cf-success {
-      margin-top: 1rem;
-      font-size: 0.85rem;
-      color: var(--green);
-    }
-    @media (max-width: 720px) {
-      .contact-form-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .cf-row { grid-template-columns: 1fr; }
-    }
+    .cf-success { margin-top: 1rem; font-size: 0.83rem; color: var(--green); }
 
-    /* ─── FOOTER ──────────────────────────────────────────── */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-    }
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer { text-align: center; padding: 2rem; font-family: var(--mono); font-size: 0.66rem; color: var(--muted); letter-spacing: 0.06em; border-top: 1px solid var(--border); }
 
-    /* ─── SCROLL REVEAL ───────────────────────────────────── */
-    /* Pure CSS fade-in on load — no JS dependency, never breaks */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: none; }
-    }
-    .reveal {
-      animation: fadeUp 0.7s ease both;
-    }
+    /* ── ANIMATIONS ──────────────────────────────────────── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+    .reveal { animation: fadeUp 0.7s ease both; }
     .reveal:nth-child(1) { animation-delay: 0.05s; }
     .reveal:nth-child(2) { animation-delay: 0.15s; }
     .reveal:nth-child(3) { animation-delay: 0.25s; }
-    @media (prefers-reduced-motion: reduce) {
-      .reveal { animation: none; }
-    }
+    @media (prefers-reduced-motion: reduce) { .reveal { animation: none; } }
 
-    /* ─── RESPONSIVE ──────────────────────────────────────── */
-    @media (max-width: 720px) {
-      nav { padding: 0 1.5rem; }
-      .nav-links a:not(.nav-cta) { display: none; }
-      .container { padding: 0 1.5rem; }
-      .hero-inner { grid-template-columns: 1fr; padding: 4rem 0; }
-      .hero-right { display: none; }
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 900px) {
+      :root { --sidebar-w: 240px; }
+      .container { padding: 0 2rem; }
+    }
+    @media (max-width: 680px) {
+      .sidebar { position: relative; width: 100%; height: auto; flex-direction: row; flex-wrap: wrap; padding: 1.2rem 1.5rem; }
+      .sb-avatar { width: 50px; height: 50px; margin: 0 1rem 0 0; }
+      .sb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+      .sb-divider { display: none; }
+      .main-content { margin-left: 0; }
+      body { flex-direction: column; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .project-row { grid-template-columns: 1fr; }
-      .project-right { flex-direction: row; align-items: center; }
-      #contact .section-wrap { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-form-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .cf-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <div class="nav-logo">Shawn Wang</div>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#journey">Journey</a>
-      <a href="#projects">Projects</a>
-      <a href="#certificates">Certs</a>
-      <a href="#contact" class="nav-cta">Contact</a>
+  <!-- ── FIXED SIDEBAR ───────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sb-avatar">
+      <img src="photo.jpg" alt="Shawn Wang">
     </div>
-  </nav>
+    <div class="sb-name">Shawn Wang</div>
+    <div class="sb-role">Backend · Security · Data · AI<br>Vancouver, Canada</div>
 
-  <main>
+    <div class="sb-divider"></div>
+
+    <nav class="sb-nav">
+      <a href="#hero" class="active">
+        <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Home
+      </a>
+      <a href="#about">
+        <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+        About
+      </a>
+      <a href="#journey">
+        <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Journey
+      </a>
+      <a href="#projects">
+        <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Projects
+      </a>
+      <a href="#certificates">
+        <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+        Certificates
+      </a>
+      <a href="#contact">
+        <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Contact
+      </a>
+    </nav>
+
+    <div class="sb-social">
+      <a href="#contact" title="Email">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      </a>
+      <a href="https://github.com/shawnworkstation" target="_blank" title="GitHub">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/shawnwang379" target="_blank" title="LinkedIn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ── SCROLLABLE MAIN ──────────────────────────────────── -->
+  <div class="main-content">
 
     <!-- HERO -->
     <section id="hero">
       <div class="container">
-        <div class="hero-inner">
-          <div>
-            <h1 class="hero-name">
-              Shawn<br><em>Wang</em>
-            </h1>
-            <p class="hero-role">// Backend · Security · Data · AI · Vancouver</p>
-            <p class="hero-bio">
-              Backend &amp; security engineer with 10+ years across China, Japan,
-              and Canada. I build secure APIs, cloud data pipelines, and
-              AI-integrated systems — currently at Precise Pipe Canada, Vancouver.
-            </p>
-            <div class="hero-actions">
-              <a href="#projects" class="btn btn-dark">View Projects</a>
-              <!-- ✏️ Uncomment below if you have a resume PDF -->
-              <!-- <a href="resume.pdf" class="btn btn-ghost" target="_blank">Resume ↗</a> -->
-            </div>
-          </div>
-          <div class="hero-right">
-            <div class="hero-avatar">
-              <img src="photo.jpg" alt="Shawn Wang" style="width:100%;height:100%;object-fit:cover">
-            </div>
-            <div class="hero-social">
-              <a href="#contact" class="hero-social-icon" title="Email">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="4" width="20" height="16" rx="2"/>
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                </svg>
-              </a>
-              <a href="https://github.com/shawnworkstation" target="_blank" class="hero-social-icon" title="GitHub">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-                </svg>
-              </a>
-              <a href="https://www.linkedin.com/in/shawnwang379" target="_blank" class="hero-social-icon" title="LinkedIn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                </svg>
-              </a>
-            </div>
+        <div class="hero-inner section-wrap">
+          <div class="hero-eyebrow">// Software Developer</div>
+          <h1 class="hero-name">
+            Shawn<br><em>Wang</em>
+          </h1>
+          <p class="hero-role">Backend · Security · Data · AI · Vancouver</p>
+          <p class="hero-bio">
+            Backend &amp; security engineer with 10+ years across China, Japan,
+            and Canada. I build secure APIs, cloud data pipelines, and
+            AI-integrated systems — currently at Precise Pipe Canada, Vancouver.
+          </p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-dark">View Projects</a>
+            <a href="#contact" class="btn btn-ghost">Get in Touch</a>
           </div>
         </div>
       </div>
@@ -767,7 +449,6 @@
                 <span class="chip">REST APIs</span>
                 <span class="chip">API Performance Optimization</span>
               </div>
-
               <p class="skills-label" style="margin-top:1rem;">Data &amp; AI/ML</p>
               <div class="skills-chips">
                 <span class="chip">Power BI</span>
@@ -777,7 +458,6 @@
                 <span class="chip">IBM Granite Guardian</span>
                 <span class="chip">PyTorch</span>
               </div>
-
               <p class="skills-label" style="margin-top:1rem;">Cloud &amp; Security</p>
               <div class="skills-chips">
                 <span class="chip">AWS</span>
@@ -793,8 +473,7 @@
               </div>
             </div>
           </div>
-
-          <div style="margin-top:2.5rem;" class="reveal">
+          <div style="margin-top:2rem;" class="reveal">
             <p class="skills-label">Languages</p>
             <div class="skills-chips">
               <span class="chip">🇬🇧 English — Professional</span>
@@ -802,7 +481,6 @@
               <span class="chip">🇯🇵 Japanese — Business level</span>
             </div>
           </div>
-
         </div>
       </div>
     </section>
@@ -814,49 +492,42 @@
           <p class="section-kicker reveal">Career</p>
           <h2 class="section-title reveal">My <em>journey</em></h2>
           <div class="timeline reveal">
-
             <div class="tl-item">
               <div class="tl-date">06/2025 — Present</div>
               <div class="tl-title">Data Engineer</div>
               <div class="tl-place">Precise Pipe Canada · Vancouver, Canada</div>
               <span class="tl-tag work">Work</span>
             </div>
-
             <div class="tl-item">
               <div class="tl-date">09/2023 — 12/2024</div>
               <div class="tl-title">Master's Degree in Cybersecurity</div>
               <div class="tl-place">New York Institute of Technology · Vancouver, Canada</div>
               <span class="tl-tag edu">Education</span>
             </div>
-
             <div class="tl-item">
               <div class="tl-date">09/2021 — 07/2023</div>
               <div class="tl-title">Senior Software Engineer</div>
               <div class="tl-place">MovaCloud Inc. · Tokyo, Japan</div>
               <span class="tl-tag work">Work</span>
             </div>
-
             <div class="tl-item">
               <div class="tl-date">04/2016 — 08/2021</div>
               <div class="tl-title">Software Engineer</div>
               <div class="tl-place">E-business Inc. · Tokyo, Japan</div>
               <span class="tl-tag work">Work</span>
             </div>
-
             <div class="tl-item">
               <div class="tl-date">08/2012 — 03/2016</div>
               <div class="tl-title">Technical Support Engineer</div>
               <div class="tl-place">Nomura Research Institute · Dalian, China</div>
               <span class="tl-tag work">Work</span>
             </div>
-
             <div class="tl-item">
               <div class="tl-date">09/2007 — 07/2012</div>
               <div class="tl-title">Bachelor's Degree in Computer Science</div>
               <div class="tl-place">Dalian Jiaotong University · Dalian, China</div>
               <span class="tl-tag edu">Education</span>
             </div>
-
           </div>
         </div>
       </div>
@@ -871,50 +542,29 @@
               <p class="section-kicker">Work</p>
               <h2 class="section-title">Featured<br><em>projects</em></h2>
             </div>
-            <!-- ✏️ EDIT: Replace with your GitHub URL -->
             <a class="view-all" href="https://github.com/shawnworkstation" target="_blank">All on GitHub →</a>
           </div>
-
           <div class="projects-list reveal">
-
-            <!-- ✏️ EDIT: Replace with your real projects. Copy this block to add more. -->
             <div class="project-row">
               <div>
                 <div class="project-num">01</div>
                 <div class="project-name">Granite Guardian Proxy</div>
-                <p class="project-desc">
-                  A reverse proxy for the OpenAI API that intercepts every prompt and
-                  response through IBM Granite Guardian, blocking harmful content before
-                  it ever reaches OpenAI. Returns OpenAI-compatible rejection messages.
-                </p>
+                <p class="project-desc">A reverse proxy for the OpenAI API that intercepts every prompt and response through IBM Granite Guardian, blocking harmful content before it ever reaches OpenAI. Returns OpenAI-compatible rejection messages.</p>
                 <div class="project-stack">
-                  <span class="stack-tag">Python</span>
-                  <span class="stack-tag">mitmproxy</span>
-                  <span class="stack-tag">NGINX</span>
-                  <span class="stack-tag">Docker</span>
-                  <span class="stack-tag">IBM watsonx</span>
+                  <span class="stack-tag">Python</span><span class="stack-tag">mitmproxy</span><span class="stack-tag">NGINX</span><span class="stack-tag">Docker</span><span class="stack-tag">IBM watsonx</span>
                 </div>
               </div>
               <div class="project-right">
                 <a class="proj-link" href="https://github.com/shawnworkstation/granite-guardian-proxy" target="_blank">GitHub ↗</a>
               </div>
             </div>
-
             <div class="project-row">
               <div>
                 <div class="project-num">02</div>
                 <div class="project-name">AI Morality Index</div>
-                <p class="project-desc">
-                  An automated benchmarking system that scores ChatGPT, Claude, and Gemini
-                  on ethical and legal awareness daily. A backend queries each model with
-                  standardised moral scenarios; a live frontend visualises the results and
-                  trends over time.
-                </p>
+                <p class="project-desc">An automated benchmarking system that scores ChatGPT, Claude, and Gemini on ethical and legal awareness daily. A backend queries each model with standardised moral scenarios; a live frontend visualises the results and trends over time.</p>
                 <div class="project-stack">
-                  <span class="stack-tag">Python</span>
-                  <span class="stack-tag">JavaScript</span>
-                  <span class="stack-tag">REST APIs</span>
-                  <span class="stack-tag">Netlify</span>
+                  <span class="stack-tag">Python</span><span class="stack-tag">JavaScript</span><span class="stack-tag">REST APIs</span><span class="stack-tag">Netlify</span>
                 </div>
               </div>
               <div class="project-right">
@@ -922,81 +572,45 @@
                 <a class="proj-link" href="https://aimoralindex.netlify.app/" target="_blank">Live ↗</a>
               </div>
             </div>
-
             <div class="project-row">
               <div>
                 <div class="project-num">03</div>
                 <div class="project-name">AWS Cloud Security Audit Tool</div>
-                <p class="project-desc">
-                  An automated AWS security scanner that checks IAM misconfigurations,
-                  exposed S3 buckets, unencrypted CloudTrail, and inactive GuardDuty across
-                  multiple services. Generates structured JSON reports and an HTML dashboard.
-                  A Terraform module deploys an intentionally vulnerable test environment
-                  to validate detections end-to-end.
-                </p>
+                <p class="project-desc">An automated AWS security scanner that checks IAM misconfigurations, exposed S3 buckets, unencrypted CloudTrail, and inactive GuardDuty. Generates JSON reports and an HTML dashboard. A Terraform module deploys an intentionally vulnerable test environment to validate detections end-to-end.</p>
                 <div class="project-stack">
-                  <span class="stack-tag">Python</span>
-                  <span class="stack-tag">boto3</span>
-                  <span class="stack-tag">Terraform</span>
-                  <span class="stack-tag">IAM</span>
-                  <span class="stack-tag">GuardDuty</span>
-                  <span class="stack-tag">CloudTrail</span>
-                  <span class="stack-tag">AWS Security Hub</span>
+                  <span class="stack-tag">Python</span><span class="stack-tag">boto3</span><span class="stack-tag">Terraform</span><span class="stack-tag">IAM</span><span class="stack-tag">GuardDuty</span><span class="stack-tag">CloudTrail</span><span class="stack-tag">AWS Security Hub</span>
                 </div>
               </div>
               <div class="project-right">
                 <span class="proj-link" style="cursor:default;opacity:0.5">In Progress</span>
               </div>
             </div>
-
             <div class="project-row">
               <div>
                 <div class="project-num">04</div>
                 <div class="project-name">Secure CI/CD Pipeline + IaC Security Scanning</div>
-                <p class="project-desc">
-                  A DevSecOps pipeline that runs Gitleaks (secret scanning), Bandit
-                  (Python SAST), Checkov (Terraform compliance), and Trivy (container
-                  vulnerability scanning) on every pull request via GitHub Actions.
-                  Any HIGH-severity finding automatically blocks the merge.
-                </p>
+                <p class="project-desc">A DevSecOps pipeline that runs Gitleaks, Bandit, Checkov, and Trivy on every pull request via GitHub Actions. Any HIGH-severity finding automatically blocks the merge.</p>
                 <div class="project-stack">
-                  <span class="stack-tag">Terraform</span>
-                  <span class="stack-tag">GitHub Actions</span>
-                  <span class="stack-tag">Python</span>
-                  <span class="stack-tag">Checkov</span>
-                  <span class="stack-tag">Trivy</span>
-                  <span class="stack-tag">Bandit</span>
-                  <span class="stack-tag">Gitleaks</span>
-                  <span class="stack-tag">AWS ECR</span>
+                  <span class="stack-tag">Terraform</span><span class="stack-tag">GitHub Actions</span><span class="stack-tag">Python</span><span class="stack-tag">Checkov</span><span class="stack-tag">Trivy</span><span class="stack-tag">Bandit</span><span class="stack-tag">Gitleaks</span><span class="stack-tag">AWS ECR</span>
                 </div>
               </div>
               <div class="project-right">
                 <span class="proj-link" style="cursor:default;opacity:0.5">In Progress</span>
               </div>
             </div>
-
             <div class="project-row">
               <div>
                 <div class="project-num">05</div>
                 <div class="project-name">Simon Says — PyGame</div>
-                <p class="project-desc">
-                  A classic Simon Says memory game built with Python and PyGame.
-                  The CPU illuminates a growing sequence of coloured buttons;
-                  the player must reproduce it in order within 3 seconds per move.
-                  Wrong input or timeout ends the game instantly.
-                </p>
+                <p class="project-desc">A classic Simon Says memory game built with Python and PyGame. The CPU illuminates a growing sequence of coloured buttons; the player must reproduce it in order within 3 seconds per move. Wrong input or timeout ends the game instantly.</p>
                 <div class="project-stack">
-                  <span class="stack-tag">Python</span>
-                  <span class="stack-tag">PyGame</span>
-                  <span class="stack-tag">OOP</span>
-                  <span class="stack-tag">Sprite</span>
+                  <span class="stack-tag">Python</span><span class="stack-tag">PyGame</span><span class="stack-tag">OOP</span><span class="stack-tag">Sprite</span>
                 </div>
               </div>
               <div class="project-right">
                 <a class="proj-link" href="https://github.com/shawnworkstation/simon-says-pygame" target="_blank">GitHub ↗</a>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -1009,48 +623,40 @@
           <p class="section-kicker reveal">Credentials</p>
           <h2 class="section-title reveal">Certificates &amp;<br><em>achievements</em></h2>
           <div class="certs-grid reveal">
-
-            <!-- ✏️ EDIT: Replace with your real certificates. Copy a card to add more. -->
             <div class="cert-card">
               <div class="cert-icon">🛡️</div>
               <div class="cert-name">Associate of (ISC)²</div>
               <div class="cert-issuer">ISC² — CISSP exam passed</div>
               <div class="cert-date">Endorsement pending</div>
             </div>
-
             <div class="cert-card">
               <div class="cert-icon">🔒</div>
               <div class="cert-name">CompTIA Security+</div>
               <div class="cert-issuer">CompTIA</div>
               <div class="cert-date">Certified</div>
             </div>
-
             <div class="cert-card">
               <div class="cert-icon">☁️</div>
               <div class="cert-name">AWS Solutions Architect – Associate</div>
               <div class="cert-issuer">Amazon Web Services</div>
               <div class="cert-date">Certified</div>
             </div>
-
             <div class="cert-card">
               <div class="cert-icon">🔗</div>
               <div class="cert-name">MuleSoft Certified Developer</div>
               <div class="cert-issuer">Salesforce / MuleSoft</div>
               <div class="cert-date">Certified</div>
             </div>
-
             <div class="cert-card">
               <div class="cert-icon">🤖</div>
               <div class="cert-name">Anthropic AI Courses</div>
               <div class="cert-issuer">Anthropic</div>
               <div class="cert-date">In Progress</div>
             </div>
-
           </div>
         </div>
       </div>
     </section>
-
 
     <!-- CONTACT -->
     <section id="contact">
@@ -1060,19 +666,11 @@
             <div class="cf-left">
               <p class="section-kicker">Contact</p>
               <h2 class="section-title">Get in<br><em>touch</em></h2>
-              <p class="cf-sub">
-                Open to backend, security, and data engineering roles.
-                Based in Vancouver — feel free to reach out.
-              </p>
-              <p class="cf-email-note">
-                Prefer email?
-                <a href="mailto:shawnwang379@gmail.com" class="cf-link">shawnwang379@gmail.com</a>
-              </p>
+              <p class="cf-sub">Open to backend, security, and data engineering roles. Based in Vancouver — feel free to reach out.</p>
+
             </div>
             <div class="cf-right">
-              <!-- Formspree: sign up at formspree.io, create a form,
-                   then replace YOUR_FORM_ID below with your actual ID -->
-              <form id="contact-form" action="https://formspree.io/f/mlgolpvr" method="POST">
+              <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
                 <div class="cf-row">
                   <div class="cf-field">
                     <input type="text" name="name" placeholder="Your name" required />
@@ -1092,9 +690,7 @@
                   <span class="cf-err">Message is required.</span>
                 </div>
                 <button type="submit" class="cf-btn">Send Message</button>
-                <p class="cf-success" id="cf-success" style="display:none;">
-                  ✓ Message sent! I'll get back to you soon.
-                </p>
+                <p class="cf-success" id="cf-success" style="display:none;">✓ Message sent! I'll get back to you soon.</p>
               </form>
             </div>
           </div>
@@ -1102,26 +698,30 @@
       </div>
     </section>
 
-  </main>
+    <footer>SHAWN WANG · BUILT WITH HTML · HOSTED ON GITHUB PAGES</footer>
 
-  <footer>SHAWN WANG · BUILT WITH HTML · HOSTED ON GITHUB PAGES</footer>
-
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    // No-op: animations are pure CSS. This script only fixes mailto links
-    // that Cloudflare may have obfuscated.
-    document.q
+  </div><!-- end .main-content -->
 
   <script>
-    // Fix any Cloudflare-obfuscated mailto links
-    document.querySelectorAll('a[href*="email-protection"]').forEach(function(a) {
-      a.href = 'mailto:shawnwang379@gmail.com';
-    });
+    // Active sidebar link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.sb-nav a');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const active = document.querySelector('.sb-nav a[href="#' + e.target.id + '"]');
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach(s => observer.observe(s));
 
-    // Formspree AJAX submission
+    // Formspree AJAX
     var form = document.getElementById('contact-form');
     if (form) {
       form.addEventListener('submit', function(e) {
-        if (form.action.includes('YOUR_FORM_ID')) return; // allow normal if not set up yet
+        if (form.action.includes('YOUR_FORM_ID')) return;
         e.preventDefault();
         fetch(form.action, {
           method: 'POST',
