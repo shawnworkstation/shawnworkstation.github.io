@@ -264,18 +264,31 @@
     .view-all:hover { color: var(--ink); gap: 0.5rem; }
     .projects-list { display: flex; flex-direction: column; gap: 1rem; }
     .project-row {
-      display: grid; grid-template-columns: 1fr auto; align-items: center;
-      gap: 2rem; padding: 1.6rem 1.8rem; background: var(--white);
+      display: flex; flex-direction: column;
+      padding: 0; background: var(--white);
       border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden;
       transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
     }
     .project-row:hover { border-color: var(--ink2); transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
+    .project-diagram {
+      width: 100%; background: #f3f2ee;
+      border-bottom: 1px solid var(--border);
+      padding: 1.2rem 1.8rem;
+      overflow-x: auto;
+    }
+    .project-diagram svg { display: block; }
+    .project-body {
+      padding: 1.4rem 1.8rem;
+      display: flex; gap: 1.5rem; align-items: flex-start;
+    }
+    .project-body-left { flex: 1; min-width: 0; }
     .project-num { font-family: var(--mono); font-size: 0.63rem; color: var(--muted); margin-bottom: 0.4rem; }
     .project-name { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; letter-spacing: -0.3px; margin-bottom: 0.35rem; }
     .project-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
     .project-stack { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.7rem; }
     .stack-tag { font-family: var(--mono); font-size: 0.62rem; padding: 0.15rem 0.5rem; border-radius: 2px; background: var(--green-bg); color: var(--green); }
-    .project-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; flex-shrink: 0; }
+    .project-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; flex-shrink: 0; padding-top: 0.2rem; }
     .proj-link { font-family: var(--mono); font-size: 0.66rem; color: var(--muted); border: 1px solid var(--border); padding: 0.28rem 0.65rem; border-radius: 3px; white-space: nowrap; transition: all 0.15s; }
     .proj-link:hover { border-color: var(--ink); color: var(--ink); }
 
@@ -436,11 +449,24 @@
               <p>
                 Associate of (ISC)² — CISSP exam passed, endorsement pending.
                 Also holds AWS Solutions Architect, CompTIA Security+, and
-                MuleSoft Certified Developer. Fluent in English, Mandarin, and Japanese.
+                MuleSoft Certified Developer.
               </p>
             </div>
             <div>
-              <p class="skills-label">Programming &amp; APIs</p>
+              <p class="skills-label">Cloud &amp; Security</p>
+              <div class="skills-chips">
+                <span class="chip">AWS</span>
+                <span class="chip">Azure</span>
+                <span class="chip">PostgreSQL</span>
+                <span class="chip">Docker</span>
+                <span class="chip">Terraform</span>
+                <span class="chip">NGINX</span>
+                <span class="chip">CI/CD</span>
+                <span class="chip">AWS IAM</span>
+                <span class="chip">MuleSoft</span>
+                <span class="chip">mitmproxy</span>
+              </div>
+              <p class="skills-label" style="margin-top:1rem;">Programming &amp; APIs</p>
               <div class="skills-chips">
                 <span class="chip">Python</span>
                 <span class="chip">Java</span>
@@ -458,29 +484,18 @@
                 <span class="chip">IBM Granite Guardian</span>
                 <span class="chip">PyTorch</span>
               </div>
-              <p class="skills-label" style="margin-top:1rem;">Cloud &amp; Security</p>
-              <div class="skills-chips">
-                <span class="chip">AWS</span>
-                <span class="chip">Azure</span>
-                <span class="chip">PostgreSQL</span>
-                <span class="chip">Docker</span>
-                <span class="chip">Terraform</span>
-                <span class="chip">NGINX</span>
-                <span class="chip">CI/CD</span>
-                <span class="chip">AWS IAM</span>
-                <span class="chip">MuleSoft</span>
-                <span class="chip">mitmproxy</span>
-              </div>
             </div>
           </div>
+
           <div style="margin-top:2rem;" class="reveal">
             <p class="skills-label">Languages</p>
             <div class="skills-chips">
-              <span class="chip">🇬🇧 English — Professional</span>
-              <span class="chip">🇨🇳 Mandarin — Native</span>
-              <span class="chip">🇯🇵 Japanese — Business level</span>
+              <span class="chip">English</span>
+              <span class="chip">Mandarin</span>
+              <span class="chip">Japanese</span>
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -546,69 +561,192 @@
           </div>
           <div class="projects-list reveal">
             <div class="project-row">
-              <div>
-                <div class="project-num">01</div>
-                <div class="project-name">Granite Guardian Proxy</div>
-                <p class="project-desc">A reverse proxy for the OpenAI API that intercepts every prompt and response through IBM Granite Guardian, blocking harmful content before it ever reaches OpenAI. Returns OpenAI-compatible rejection messages.</p>
-                <div class="project-stack">
-                  <span class="stack-tag">Python</span><span class="stack-tag">mitmproxy</span><span class="stack-tag">NGINX</span><span class="stack-tag">Docker</span><span class="stack-tag">IBM watsonx</span>
-                </div>
+              <div class="project-diagram">
+                <svg width="100%" viewBox="0 0 680 130" xmlns="http://www.w3.org/2000/svg">
+                  <defs><marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+                  <!-- happy path row -->
+                  <g class="c-gray"><rect x="20" y="44" width="80" height="44" rx="8" stroke-width="0.5"/><text class="th" x="60" y="62" text-anchor="middle" dominant-baseline="central">Client</text><text class="ts" x="60" y="78" text-anchor="middle" dominant-baseline="central">prompt</text></g>
+                  <line x1="101" y1="66" x2="137" y2="66" stroke="var(--t)" stroke-width="1" marker-end="url(#a1)" opacity="0.4"/>
+                  <g class="c-gray"><rect x="138" y="44" width="80" height="44" rx="8" stroke-width="0.5"/><text class="th" x="178" y="62" text-anchor="middle" dominant-baseline="central">NGINX</text><text class="ts" x="178" y="78" text-anchor="middle" dominant-baseline="central">SSL :443</text></g>
+                  <line x1="219" y1="66" x2="255" y2="66" stroke="var(--t)" stroke-width="1" marker-end="url(#a1)" opacity="0.4"/>
+                  <g class="c-teal"><rect x="256" y="30" width="116" height="72" rx="8" stroke-width="0.5"/><text class="th" x="314" y="54" text-anchor="middle" dominant-baseline="central">mitmproxy</text><text class="ts" x="314" y="72" text-anchor="middle" dominant-baseline="central">Guardian check</text><text class="ts" x="314" y="88" text-anchor="middle" dominant-baseline="central">toxicity score</text></g>
+                  <!-- branch: block -->
+                  <line x1="314" y1="30" x2="314" y2="12" stroke="#E24B4A" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#a1)" opacity="0.7"/>
+                  <g class="c-red"><rect x="256" y="2" width="116" height="22" rx="5" stroke-width="0.5"/><text class="th" x="314" y="13" text-anchor="middle" dominant-baseline="central">Block + reject</text></g>
+                  <!-- continue -->
+                  <line x1="373" y1="66" x2="409" y2="66" stroke="var(--t)" stroke-width="1" marker-end="url(#a1)" opacity="0.4"/>
+                  <g class="c-purple"><rect x="410" y="44" width="110" height="44" rx="8" stroke-width="0.5"/><text class="th" x="465" y="62" text-anchor="middle" dominant-baseline="central">IBM Granite</text><text class="ts" x="465" y="78" text-anchor="middle" dominant-baseline="central">Guardian LLM</text></g>
+                  <line x1="521" y1="66" x2="557" y2="66" stroke="var(--t)" stroke-width="1" marker-end="url(#a1)" opacity="0.4"/>
+                  <g class="c-gray"><rect x="558" y="44" width="100" height="44" rx="8" stroke-width="0.5"/><text class="th" x="608" y="62" text-anchor="middle" dominant-baseline="central">OpenAI</text><text class="ts" x="608" y="78" text-anchor="middle" dominant-baseline="central">API</text></g>
+                  <!-- score label -->
+                  <text class="ts" x="407" y="26" text-anchor="middle" fill="var(--color-text-secondary)">score &lt; threshold</text>
+                  <line x1="407" y1="30" x2="390" y2="60" stroke="var(--t)" stroke-width="0.5" stroke-dasharray="2,2" opacity="0.4"/>
+                  <text class="ts" x="270" y="120" fill="var(--color-text-secondary)">Docker: NGINX + mitmproxy + Guardian addon</text>
+                </svg>
               </div>
-              <div class="project-right">
-                <a class="proj-link" href="https://github.com/shawnworkstation/granite-guardian-proxy" target="_blank">GitHub ↗</a>
+              <div class="project-body">
+                <div class="project-body-left">
+                  <div class="project-num">01</div>
+                  <div class="project-name">Granite Guardian Proxy</div>
+                  <p class="project-desc">A reverse proxy for the OpenAI API that intercepts every prompt and response through IBM Granite Guardian, blocking harmful content before it ever reaches OpenAI. Returns OpenAI-compatible rejection messages.</p>
+                  <div class="project-stack">
+                    <span class="stack-tag">Python</span><span class="stack-tag">mitmproxy</span><span class="stack-tag">NGINX</span><span class="stack-tag">Docker</span><span class="stack-tag">IBM watsonx</span>
+                  </div>
+                </div>
+                <div class="project-right">
+                  <a class="proj-link" href="https://github.com/shawnworkstation/granite-guardian-proxy" target="_blank">GitHub ↗</a>
+                </div>
               </div>
             </div>
             <div class="project-row">
-              <div>
-                <div class="project-num">02</div>
-                <div class="project-name">AI Morality Index</div>
-                <p class="project-desc">An automated benchmarking system that scores ChatGPT, Claude, and Gemini on ethical and legal awareness daily. A backend queries each model with standardised moral scenarios; a live frontend visualises the results and trends over time.</p>
-                <div class="project-stack">
-                  <span class="stack-tag">Python</span><span class="stack-tag">JavaScript</span><span class="stack-tag">REST APIs</span><span class="stack-tag">Netlify</span>
-                </div>
+              <div class="project-diagram">
+                <svg width="100%" viewBox="0 0 680 160" xmlns="http://www.w3.org/2000/svg">
+                  <defs><marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+                  <!-- Center: Scheduler -->
+                  <g class="c-teal"><rect x="270" y="56" width="140" height="48" rx="8" stroke-width="0.5"/><text class="th" x="340" y="74" text-anchor="middle" dominant-baseline="central">Python scheduler</text><text class="ts" x="340" y="91" text-anchor="middle" dominant-baseline="central">daily questions</text></g>
+                  <!-- 3 AI models top -->
+                  <g class="c-purple"><rect x="20"  y="10" width="100" height="40" rx="8" stroke-width="0.5"/><text class="th" x="70"  y="30" text-anchor="middle" dominant-baseline="central">ChatGPT</text></g>
+                  <g class="c-purple"><rect x="290" y="10" width="100" height="40" rx="8" stroke-width="0.5"/><text class="th" x="340" y="30" text-anchor="middle" dominant-baseline="central">Claude</text></g>
+                  <g class="c-purple"><rect x="560" y="10" width="100" height="40" rx="8" stroke-width="0.5"/><text class="th" x="610" y="30" text-anchor="middle" dominant-baseline="central">Gemini</text></g>
+                  <!-- arrows scheduler → models -->
+                  <line x1="290" y1="68" x2="122" y2="50" stroke="var(--t)" stroke-width="1" marker-end="url(#a2)" opacity="0.5"/>
+                  <line x1="340" y1="56" x2="340" y2="51" stroke="var(--t)" stroke-width="1" marker-end="url(#a2)" opacity="0.5"/>
+                  <line x1="390" y1="68" x2="558" y2="50" stroke="var(--t)" stroke-width="1" marker-end="url(#a2)" opacity="0.5"/>
+                  <!-- Scoring engine -->
+                  <g class="c-amber"><rect x="200" y="118" width="130" height="36" rx="8" stroke-width="0.5"/><text class="th" x="265" y="136" text-anchor="middle" dominant-baseline="central">Scoring engine</text></g>
+                  <line x1="290" y1="104" x2="265" y2="117" stroke="var(--t)" stroke-width="1" marker-end="url(#a2)" opacity="0.5"/>
+                  <!-- Frontend -->
+                  <g class="c-gray"><rect x="360" y="118" width="120" height="36" rx="8" stroke-width="0.5"/><text class="th" x="420" y="130" text-anchor="middle" dominant-baseline="central">Frontend</text><text class="ts" x="420" y="146" text-anchor="middle" dominant-baseline="central">Netlify dashboard</text></g>
+                  <line x1="330" y1="136" x2="359" y2="136" stroke="var(--t)" stroke-width="1" marker-end="url(#a2)" opacity="0.5"/>
+                </svg>
               </div>
-              <div class="project-right">
-                <a class="proj-link" href="https://github.com/shawnworkstation/aimoralindex" target="_blank">GitHub ↗</a>
-                <a class="proj-link" href="https://aimoralindex.netlify.app/" target="_blank">Live ↗</a>
+              <div class="project-body">
+                <div class="project-body-left">
+                  <div class="project-num">02</div>
+                  <div class="project-name">AI Morality Index</div>
+                  <p class="project-desc">An automated benchmarking system that scores ChatGPT, Claude, and Gemini on ethical and legal awareness daily. A backend queries each model with standardised moral scenarios; a live frontend visualises the results and trends over time.</p>
+                  <div class="project-stack">
+                    <span class="stack-tag">Python</span><span class="stack-tag">JavaScript</span><span class="stack-tag">REST APIs</span><span class="stack-tag">Netlify</span>
+                  </div>
+                </div>
+                <div class="project-right">
+                  <a class="proj-link" href="https://github.com/shawnworkstation/aimoralindex" target="_blank">GitHub ↗</a>
+                  <a class="proj-link" href="https://aimoralindex.netlify.app/" target="_blank">Live ↗</a>
+                </div>
               </div>
             </div>
             <div class="project-row">
-              <div>
-                <div class="project-num">03</div>
-                <div class="project-name">AWS Cloud Security Audit Tool</div>
-                <p class="project-desc">An automated AWS security scanner that checks IAM misconfigurations, exposed S3 buckets, unencrypted CloudTrail, and inactive GuardDuty. Generates JSON reports and an HTML dashboard. A Terraform module deploys an intentionally vulnerable test environment to validate detections end-to-end.</p>
-                <div class="project-stack">
-                  <span class="stack-tag">Python</span><span class="stack-tag">boto3</span><span class="stack-tag">Terraform</span><span class="stack-tag">IAM</span><span class="stack-tag">GuardDuty</span><span class="stack-tag">CloudTrail</span><span class="stack-tag">AWS Security Hub</span>
-                </div>
+              <div class="project-diagram">
+                <svg width="100%" viewBox="0 0 680 170" xmlns="http://www.w3.org/2000/svg">
+                  <defs><marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+                  <!-- AWS cloud container -->
+                  <g class="c-amber"><rect x="10" y="10" width="390" height="148" rx="16" stroke-width="0.5"/><text class="th" x="30" y="30" dominant-baseline="central">AWS cloud</text></g>
+                  <!-- Services inside -->
+                  <g class="c-gray"><rect x="30"  y="42" width="80" height="36" rx="6" stroke-width="0.5"/><text class="th" x="70"  y="60" text-anchor="middle" dominant-baseline="central">IAM</text></g>
+                  <g class="c-gray"><rect x="130" y="42" width="80" height="36" rx="6" stroke-width="0.5"/><text class="th" x="170" y="60" text-anchor="middle" dominant-baseline="central">S3</text></g>
+                  <g class="c-gray"><rect x="230" y="42" width="90" height="36" rx="6" stroke-width="0.5"/><text class="th" x="275" y="60" text-anchor="middle" dominant-baseline="central">GuardDuty</text></g>
+                  <g class="c-gray"><rect x="50"  y="100" width="90" height="36" rx="6" stroke-width="0.5"/><text class="th" x="95"  y="118" text-anchor="middle" dominant-baseline="central">CloudTrail</text></g>
+                  <g class="c-gray"><rect x="200" y="100" width="80" height="36" rx="6" stroke-width="0.5"/><text class="th" x="240" y="118" text-anchor="middle" dominant-baseline="central">Sec Hub</text></g>
+                  <!-- Scanner external -->
+                  <g class="c-teal"><rect x="420" y="20" width="110" height="44" rx="8" stroke-width="0.5"/><text class="th" x="475" y="36" text-anchor="middle" dominant-baseline="central">Python</text><text class="ts" x="475" y="52" text-anchor="middle" dominant-baseline="central">boto3 scanner</text></g>
+                  <line x1="401" y1="84" x2="419" y2="52" stroke="var(--t)" stroke-width="1" marker-end="url(#a3)" opacity="0.5"/>
+                  <!-- Outputs -->
+                  <g class="c-purple"><rect x="420" y="80" width="110" height="40" rx="8" stroke-width="0.5"/><text class="th" x="475" y="95" text-anchor="middle" dominant-baseline="central">JSON report</text><text class="ts" x="475" y="111" text-anchor="middle" dominant-baseline="central">HTML dashboard</text></g>
+                  <line x1="530" y1="42" x2="556" y2="96" stroke="var(--t)" stroke-width="1" marker-end="url(#a3)" opacity="0.4"/>
+                  <!-- Terraform vuln env -->
+                  <g class="c-coral"><rect x="420" y="134" width="110" height="36" rx="8" stroke-width="0.5" stroke-dasharray="4 2"/><text class="th" x="475" y="150" text-anchor="middle" dominant-baseline="central">Terraform</text><text class="ts" x="475" y="164" text-anchor="middle" dominant-baseline="central">vuln. test env</text></g>
+                  <line x1="530" y1="100" x2="530" y2="133" stroke="var(--t)" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#a3)" opacity="0.4"/>
+                </svg>
               </div>
-              <div class="project-right">
-                <span class="proj-link" style="cursor:default;opacity:0.5">In Progress</span>
+              <div class="project-body">
+                <div class="project-body-left">
+                  <div class="project-num">03</div>
+                  <div class="project-name">AWS Cloud Security Audit Tool</div>
+                  <p class="project-desc">An automated AWS security scanner that checks IAM misconfigurations, exposed S3 buckets, unencrypted CloudTrail, and inactive GuardDuty. Generates JSON reports and an HTML dashboard. A Terraform module deploys an intentionally vulnerable test environment to validate detections end-to-end.</p>
+                  <div class="project-stack">
+                    <span class="stack-tag">Python</span><span class="stack-tag">boto3</span><span class="stack-tag">Terraform</span><span class="stack-tag">IAM</span><span class="stack-tag">GuardDuty</span><span class="stack-tag">CloudTrail</span><span class="stack-tag">AWS Security Hub</span>
+                  </div>
+                </div>
+                <div class="project-right">
+                  <span class="proj-link" style="cursor:default;opacity:0.5">In Progress</span>
+                </div>
               </div>
             </div>
             <div class="project-row">
-              <div>
-                <div class="project-num">04</div>
-                <div class="project-name">Secure CI/CD Pipeline + IaC Security Scanning</div>
-                <p class="project-desc">A DevSecOps pipeline that runs Gitleaks, Bandit, Checkov, and Trivy on every pull request via GitHub Actions. Any HIGH-severity finding automatically blocks the merge.</p>
-                <div class="project-stack">
-                  <span class="stack-tag">Terraform</span><span class="stack-tag">GitHub Actions</span><span class="stack-tag">Python</span><span class="stack-tag">Checkov</span><span class="stack-tag">Trivy</span><span class="stack-tag">Bandit</span><span class="stack-tag">Gitleaks</span><span class="stack-tag">AWS ECR</span>
-                </div>
+              <div class="project-diagram">
+                <svg width="100%" viewBox="0 0 680 116" xmlns="http://www.w3.org/2000/svg">
+                  <defs><marker id="a4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+                  <!-- PR trigger -->
+                  <g class="c-gray"><rect x="20" y="36" width="88" height="44" rx="8" stroke-width="0.5"/><text class="th" x="64" y="54" text-anchor="middle" dominant-baseline="central">Pull</text><text class="th" x="64" y="70" text-anchor="middle" dominant-baseline="central">Request</text></g>
+                  <line x1="109" y1="58" x2="128" y2="58" stroke="var(--t)" stroke-width="1" marker-end="url(#a4)" opacity="0.4"/>
+                  <!-- 4 scan stages -->
+                  <g class="c-teal"><rect x="130" y="20" width="90" height="36" rx="8" stroke-width="0.5"/><text class="th" x="175" y="34" text-anchor="middle" dominant-baseline="central">Gitleaks</text><text class="ts" x="175" y="50" text-anchor="middle" dominant-baseline="central">secrets</text></g>
+                  <g class="c-teal"><rect x="236" y="20" width="90" height="36" rx="8" stroke-width="0.5"/><text class="th" x="281" y="34" text-anchor="middle" dominant-baseline="central">Bandit</text><text class="ts" x="281" y="50" text-anchor="middle" dominant-baseline="central">Python SAST</text></g>
+                  <g class="c-teal"><rect x="342" y="20" width="90" height="36" rx="8" stroke-width="0.5"/><text class="th" x="387" y="34" text-anchor="middle" dominant-baseline="central">Checkov</text><text class="ts" x="387" y="50" text-anchor="middle" dominant-baseline="central">IaC policy</text></g>
+                  <g class="c-teal"><rect x="448" y="20" width="90" height="36" rx="8" stroke-width="0.5"/><text class="th" x="493" y="34" text-anchor="middle" dominant-baseline="central">Trivy</text><text class="ts" x="493" y="50" text-anchor="middle" dominant-baseline="central">containers</text></g>
+                  <!-- connectors between stages -->
+                  <line x1="221" y1="38" x2="235" y2="38" stroke="var(--t)" stroke-width="1" marker-end="url(#a4)" opacity="0.4"/>
+                  <line x1="327" y1="38" x2="341" y2="38" stroke="var(--t)" stroke-width="1" marker-end="url(#a4)" opacity="0.4"/>
+                  <line x1="433" y1="38" x2="447" y2="38" stroke="var(--t)" stroke-width="1" marker-end="url(#a4)" opacity="0.4"/>
+                  <!-- fail path (drop down from any scan) -->
+                  <line x1="387" y1="56" x2="387" y2="72" stroke="#E24B4A" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#a4)" opacity="0.7"/>
+                  <g class="c-red"><rect x="240" y="72" width="290" height="32" rx="8" stroke-width="0.5"/><text class="th" x="385" y="88" text-anchor="middle" dominant-baseline="central">HIGH finding — merge blocked</text></g>
+                  <!-- pass -->
+                  <line x1="539" y1="38" x2="560" y2="38" stroke="var(--t)" stroke-width="1" marker-end="url(#a4)" opacity="0.4"/>
+                  <g class="c-green"><rect x="562" y="20" width="100" height="36" rx="8" stroke-width="0.5"/><text class="th" x="612" y="34" text-anchor="middle" dominant-baseline="central">All clear</text><text class="ts" x="612" y="50" text-anchor="middle" dominant-baseline="central">merge allowed</text></g>
+                </svg>
               </div>
-              <div class="project-right">
-                <span class="proj-link" style="cursor:default;opacity:0.5">In Progress</span>
+              <div class="project-body">
+                <div class="project-body-left">
+                  <div class="project-num">04</div>
+                  <div class="project-name">Secure CI/CD Pipeline + IaC Security Scanning</div>
+                  <p class="project-desc">A DevSecOps pipeline that runs Gitleaks, Bandit, Checkov, and Trivy on every pull request via GitHub Actions. Any HIGH-severity finding automatically blocks the merge.</p>
+                  <div class="project-stack">
+                    <span class="stack-tag">Terraform</span><span class="stack-tag">GitHub Actions</span><span class="stack-tag">Python</span><span class="stack-tag">Checkov</span><span class="stack-tag">Trivy</span><span class="stack-tag">Bandit</span><span class="stack-tag">Gitleaks</span><span class="stack-tag">AWS ECR</span>
+                  </div>
+                </div>
+                <div class="project-right">
+                  <span class="proj-link" style="cursor:default;opacity:0.5">In Progress</span>
+                </div>
               </div>
             </div>
             <div class="project-row">
-              <div>
-                <div class="project-num">05</div>
-                <div class="project-name">Simon Says — PyGame</div>
-                <p class="project-desc">A classic Simon Says memory game built with Python and PyGame. The CPU illuminates a growing sequence of coloured buttons; the player must reproduce it in order within 3 seconds per move. Wrong input or timeout ends the game instantly.</p>
-                <div class="project-stack">
-                  <span class="stack-tag">Python</span><span class="stack-tag">PyGame</span><span class="stack-tag">OOP</span><span class="stack-tag">Sprite</span>
-                </div>
+              <div class="project-diagram">
+                <svg width="100%" viewBox="0 0 680 160" xmlns="http://www.w3.org/2000/svg">
+                  <defs><marker id="a5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+                  <!-- 4 coloured game buttons as circles -->
+                  <g class="c-green"><circle cx="200" cy="60" r="30" stroke-width="0.5"/><text class="th" x="200" y="60" text-anchor="middle" dominant-baseline="central">G</text></g>
+                  <g class="c-red"><circle cx="280" cy="60" r="30" stroke-width="0.5"/><text class="th" x="280" y="60" text-anchor="middle" dominant-baseline="central">R</text></g>
+                  <g class="c-blue"><circle cx="360" cy="60" r="30" stroke-width="0.5"/><text class="th" x="360" y="60" text-anchor="middle" dominant-baseline="central">B</text></g>
+                  <g class="c-amber"><circle cx="440" cy="60" r="30" stroke-width="0.5"/><text class="th" x="440" y="60" text-anchor="middle" dominant-baseline="central">Y</text></g>
+                  <!-- CPU picks sequence — arrow down from CPU label -->
+                  <g class="c-teal"><rect x="10" y="40" width="100" height="40" rx="8" stroke-width="0.5"/><text class="th" x="60" y="56" text-anchor="middle" dominant-baseline="central">CPU picks</text><text class="ts" x="60" y="72" text-anchor="middle" dominant-baseline="central">random color</text></g>
+                  <line x1="111" y1="60" x2="169" y2="60" stroke="var(--t)" stroke-width="1" marker-end="url(#a5)" opacity="0.5"/>
+                  <!-- Player response -->
+                  <g class="c-purple"><rect x="510" y="40" width="90" height="40" rx="8" stroke-width="0.5"/><text class="th" x="555" y="56" text-anchor="middle" dominant-baseline="central">Player</text><text class="ts" x="555" y="72" text-anchor="middle" dominant-baseline="central">3s timer</text></g>
+                  <line x1="471" y1="60" x2="509" y2="60" stroke="var(--t)" stroke-width="1" marker-end="url(#a5)" opacity="0.5"/>
+                  <!-- Check row -->
+                  <g class="c-green"><rect x="430" y="110" width="90" height="34" rx="8" stroke-width="0.5"/><text class="th" x="475" y="127" text-anchor="middle" dominant-baseline="central">Correct</text></g>
+                  <g class="c-red"><rect x="545" y="110" width="90" height="34" rx="8" stroke-width="0.5"/><text class="th" x="590" y="127" text-anchor="middle" dominant-baseline="central">Wrong</text></g>
+                  <line x1="555" y1="81" x2="490" y2="109" stroke="var(--t)" stroke-width="1" marker-end="url(#a5)" opacity="0.4"/>
+                  <line x1="565" y1="81" x2="580" y2="109" stroke="var(--t)" stroke-width="1" marker-end="url(#a5)" opacity="0.4"/>
+                  <!-- loop back -->
+                  <path d="M430 127 Q320 148 60 90 Q40 80 60 80" fill="none" stroke="var(--t)" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#a5)" opacity="0.35"/>
+                  <text class="ts" x="220" y="152" text-anchor="middle" fill="var(--color-text-secondary)">+1 step each round</text>
+                </svg>
               </div>
-              <div class="project-right">
-                <a class="proj-link" href="https://github.com/shawnworkstation/simon-says-pygame" target="_blank">GitHub ↗</a>
+              <div class="project-body">
+                <div class="project-body-left">
+                  <div class="project-num">05</div>
+                  <div class="project-name">Simon Says — PyGame</div>
+                  <p class="project-desc">A classic Simon Says memory game built with Python and PyGame. The CPU illuminates a growing sequence of coloured buttons; the player must reproduce it in order within 3 seconds per move. Wrong input or timeout ends the game instantly.</p>
+                  <div class="project-stack">
+                    <span class="stack-tag">Python</span><span class="stack-tag">PyGame</span><span class="stack-tag">OOP</span><span class="stack-tag">Sprite</span>
+                  </div>
+                </div>
+                <div class="project-right">
+                  <a class="proj-link" href="https://github.com/shawnworkstation/simon-says-pygame" target="_blank">GitHub ↗</a>
+                </div>
               </div>
             </div>
           </div>
