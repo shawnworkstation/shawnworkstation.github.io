@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shawn Wang — Software Developer</title>
+  <title>Shawn Wang — Backend &amp; Security Engineer | Vancouver</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&family=Geist:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
@@ -169,6 +169,30 @@
       color: var(--ink);
     }
     .hero-name em { font-style: italic; color: var(--muted); }
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-photo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+    .hero-photo {
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--white);
+    }
+    @media (max-width: 680px) {
+      .hero-layout { grid-template-columns: 1fr; }
+      .hero-photo-wrap { display: none; }
+    }
     .hero-role {
       font-family: var(--mono);
       font-size: 0.78rem;
@@ -408,19 +432,29 @@
     <section id="hero">
       <div class="container">
         <div class="hero-inner section-wrap">
-          <div class="hero-eyebrow">// Software Developer</div>
-          <h1 class="hero-name">
-            Shawn<br><em>Wang</em>
-          </h1>
-          <p class="hero-role">Backend · Security · Data · AI · Vancouver</p>
-          <p class="hero-bio">
-            Backend &amp; security engineer with 10+ years across China, Japan,
-            and Canada. I build secure APIs, cloud data pipelines, and
-            AI-integrated systems — currently at Precise Pipe Canada, Vancouver.
-          </p>
-          <div class="hero-actions">
-            <a href="#projects" class="btn btn-dark">View Projects</a>
-            <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+          <div class="hero-layout">
+            <div class="hero-text">
+              <div class="hero-eyebrow">// Backend &amp; Security Engineer</div>
+              <h1 class="hero-name">
+                Shawn<br><em>Wang</em>
+              </h1>
+              <p class="hero-role">Backend · Security · Data · AI · Vancouver</p>
+              <p class="hero-bio">
+                10+ years building secure APIs, cloud data pipelines, and
+                AI-integrated systems across China, Japan, and Canada.
+                Currently Data Engineer at Precise Pipe Canada.
+              </p>
+              <div class="hero-actions">
+                <a href="#projects" class="btn btn-dark">View Projects</a>
+                <a href="resume.pdf" class="btn btn-ghost" target="_blank">Download Resume ↗</a>
+                <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+              </div>
+            </div>
+            <div class="hero-photo-wrap">
+              <div class="hero-photo">
+                <img src="photo.jpg" alt="Shawn Wang" style="width:100%;height:100%;object-fit:cover">
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -435,21 +469,23 @@
           <div class="about-grid reveal">
             <div class="about-text">
               <p>
-                Backend and security engineer with 10+ years of experience across
-                Japan and Canada, specialising in API architecture, cloud security,
-                and AI-integrated systems. Currently working as a Data Engineer at
-                <strong>Precise Pipe Canada</strong> in Vancouver.
+                I grew up in Dalian, China, studied Computer Science, then spent
+                seven years engineering backend systems in Tokyo — working on
+                enterprise integrations, secure microservices, and mission-critical
+                APIs for large-scale retail and financial platforms.
               </p>
               <p>
-                I build things at the intersection of security and applied AI —
-                from content-moderation proxies and DevSecOps pipelines to
-                Power BI analytics dashboards and LLM safety classification systems.
-                International background spanning China, Japan, and Canada.
+                In 2023 I moved to Vancouver to pursue a Master's in Cybersecurity
+                at NYIT, which deepened my focus on security engineering and brought
+                together my backend experience with a more formal understanding of
+                defence-in-depth, identity, and risk.
               </p>
               <p>
-                Associate of (ISC)² — CISSP exam passed, endorsement pending.
-                Also holds AWS Solutions Architect, CompTIA Security+, and
-                MuleSoft Certified Developer.
+                What drives me is building systems that are not just functional but
+                genuinely trustworthy — APIs that handle failure gracefully, pipelines
+                that protect data at every step, and AI integrations that account for
+                safety from the start. Outside of work I enjoy exploring Vancouver
+                and continuing to build projects at the intersection of security and AI.
               </p>
             </div>
             <div>
@@ -512,6 +548,12 @@
               <div class="tl-title">Data Engineer</div>
               <div class="tl-place">Precise Pipe Canada · Vancouver, Canada</div>
               <span class="tl-tag work">Work</span>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">01/2025 — 05/2025</div>
+              <div class="tl-title">Personal Projects &amp; Job Search</div>
+              <div class="tl-place">Vancouver, Canada</div>
+              <span class="tl-tag" style="background:#f5f5ff;color:#5a5a9a;border-color:#d0d0ee">Self-directed</span>
             </div>
             <div class="tl-item">
               <div class="tl-date">09/2023 — 12/2024</div>
@@ -871,6 +913,7 @@
 
             </div>
             <div class="cf-right">
+              <!-- SETUP: Replace YOUR_FORM_ID with your real Formspree ID from formspree.io -->
               <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
                 <div class="cf-row">
                   <div class="cf-field">
@@ -892,6 +935,7 @@
                 </div>
                 <button type="submit" class="cf-btn">Send Message</button>
                 <p class="cf-success" id="cf-success" style="display:none;">✓ Message sent! I'll get back to you soon.</p>
+                <p class="cf-notice" id="cf-notice" style="display:none;margin-top:0.75rem;font-size:0.75rem;color:#8a8a85;">Form not yet activated — email me directly at <a href="mailto:shawnwang379@gmail.com" style="color:#2d6a4f;">shawnwang379@gmail.com</a></p>
               </form>
             </div>
           </div>
@@ -899,7 +943,7 @@
       </div>
     </section>
 
-    <footer></footer>
+    <footer>SHAWN WANG · BUILT WITH HTML · HOSTED ON GITHUB PAGES</footer>
 
   </div><!-- end .main-content -->
 
@@ -921,8 +965,16 @@
     // Formspree AJAX
     var form = document.getElementById('contact-form');
     if (form) {
+      // Show fallback notice if not yet activated
+      if (form.action.includes('YOUR_FORM_ID')) {
+        document.getElementById('cf-notice').style.display = 'block';
+      }
       form.addEventListener('submit', function(e) {
-        if (form.action.includes('YOUR_FORM_ID')) return;
+        if (form.action.includes('YOUR_FORM_ID')) {
+          e.preventDefault();
+          document.getElementById('cf-notice').style.display = 'block';
+          return;
+        }
         e.preventDefault();
         fetch(form.action, {
           method: 'POST',
@@ -932,6 +984,7 @@
           if (r.ok) {
             form.reset();
             document.getElementById('cf-success').style.display = 'block';
+            document.getElementById('cf-notice').style.display = 'none';
           }
         });
       });
